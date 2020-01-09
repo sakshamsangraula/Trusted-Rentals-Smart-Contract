@@ -11,6 +11,8 @@ const web3 = new Web3(provider);
 // get the interface and bytecode from compile.js file
 const { interface, bytecode } = require('../compile');
 
+const INITIAL_ID = 12345;
+const NEW_ID = 6789;
 let accounts;
 let car;
 
@@ -28,7 +30,7 @@ beforeEach(async () => {
   // along with the required ID parameter and using the first
   // account to send some gas to deploy the contract
 car = await new web3.eth.Contract(JSON.parse(interface))
-.deploy({data: bytecode, arguments: [12345]})
+.deploy({data: bytecode, arguments: [INITIAL_ID]})
 .send({from: accounts[0], gas: '1000000'});
 
 });
@@ -37,5 +39,21 @@ car = await new web3.eth.Contract(JSON.parse(interface))
 describe('Inbox', ()=> {
   it('deploys a contract', () => {
 assert.ok(car.options.address);
+  });
+
+// call the ownerID method and check if the ID that is returned
+// is the same as the initial ID passed in to the constructor
+  it('passed in a default message in the constructor', async() => {
+    const returnedID = await car.methods.ownerID().call();
+    assert.equal(returnedID, INITIAL_ID)
+  });
+
+// set a new ID to ownerID by calling the setOwnerID function and since we are changing
+// data on the blockchain, we are using the first account to do this.Call the ownerID function
+// again and test if the ownerID is updated with the new ID
+  it('update the ownerID', async()=>{
+    await car.methods.setOwnerID(NEW_ID).send({from: accounts[0]});
+    const returnedID = await car.methods.ownerID().call();
+    assert.equal(returnedID, NEW_ID);
   });
 });

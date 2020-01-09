@@ -6,6 +6,9 @@ pragma solidity ^0.4.17;
 
 contract Car{
   // declare an instance variable called ownerID
+
+  //Note: since this has a public identifier, a public getter method, ownerID
+  // will automatically be created which returns the value of ownerID
   int public ownerID;
 
   // create a function(constructor) that initializes the instance variables with the argument
