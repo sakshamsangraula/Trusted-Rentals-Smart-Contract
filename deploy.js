@@ -9,7 +9,7 @@ const { interface, bytecode } = require('./compile');
 // setup the provider to unlock the account in metamask by passing in the mnemonics
 // and the link to the rinkeby API
 const provider = new HDWalletProvider(
-  'modify remember arrest pumpkin high month vanish ticket net banana pelican lava',
+  'THIS LINE SHOULD CONTAIN THE MNEMONICS CREATED IN METAMASK',
   'https://rinkeby.infura.io/v3/84a8cb5bcf2a4baa802e5eb1cd1b8162'
 
 );
