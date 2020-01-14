@@ -9,6 +9,10 @@ import { auth, createUserProfileDocument } from './firebase/firebase.utils';
 import './rentpagestates.styles.scss';
 import SelectState from './selecttag.JPG';
 import SelectCar from './select';
+import firebase from 'firebase/app';
+import 'firebase/firestore';
+import { firestore } from './test';
+import Contract from './contract';
 
 const RentPage = () => (
   <div>
@@ -213,12 +217,19 @@ const States = () =>
 
 )
 
-const Cities = () =>
+export const Cities = (props) =>
 ( 
-<div>
+ 
+
+  <fragement>
   <SelectCar/>
 
-</div>
+  <Link className = "contract" to = '/contract'>Click here to enter in the contract</Link>
+ 
+
+
+
+</fragement>
 
 )
 
@@ -378,6 +389,8 @@ class App extends React.Component{
       <Route  exact path='/states' component={States} />
       <Route  exact path='/cities' component={Cities} />
       <Route  exact path='/signin' component={SignInAndSignUpPage} />
+      <Route  exact path='/contract' component={Contract} />
+
 
       </Switch>
         
